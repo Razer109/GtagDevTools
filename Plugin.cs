@@ -1,6 +1,7 @@
-﻿using BepInEx;
+using BepInEx;
 using BepInEx.Bootstrap;
 using System;
+using System.Diagnostics;
 using UnityEngine;
 
 
@@ -18,11 +19,17 @@ namespace DeveloperTools
 
 
         public int objectCount;
+
+        public void restart()
+        {
+            Application.Quit();
+        }
         public void OnGUI()
         {
             // GUI skin stuff
             GUI.skin.label.fontSize = 35;
             GUI.skin.box.fontSize = 27;
+
 
 
 
@@ -47,7 +54,11 @@ namespace DeveloperTools
                         Mainpg = false;
                         InstalledModspg = true;
                     }
-
+                    if (GUI.Button(new Rect(100, 50, 140, 50), "Restart (steam)"))
+                    {
+                        Process.Start("steam://rungameid/1533390");
+                        Invoke("restart", 1f);
+                    }
 
                     GUI.Label(new Rect(50f, 150f, 400, 400), "Fps: " + 1 / Time.deltaTime);
 
